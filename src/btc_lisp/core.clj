@@ -1,29 +1,14 @@
 (ns btc-lisp.core
-  (:require [instaparse.core :as insta]))
-
-(defprotocol Lisp (as-lisp [this]))
-
-(extend-protocol Lisp
-  java.lang.String
-  (as-lisp [str] (read-string str))
-  clojure.lang.Symbol
-  (as-lisp [symbol] symbol)
-  clojure.lang.ISeq
-  (as-lisp [items]
-    (->> items
-         (map as-lisp)
-         (apply list)))
-
-  java.lang.Long
-  (as-lisp [num] num))
-
-(declare valid-syntax? valid-types? all-primitives? lisp->script)
+  (:require [instaparse.core :as insta]
+            [btc-lisp.protocols :as p]))
 
 (defn compile
-  [btc-lisp-str]
+  [{:keys [valid-syntax? valid-types?
+           all-primitives? lisp->script]}
+   btc-lisp-str]
   (valid-syntax? btc-lisp-str)
   (valid-types? btc-lisp-str)
-  (loop [lisp-code (as-lisp btc-lisp-str)]
+  (loop [lisp-code (p/as-lisp btc-lisp-str)]
     (if (all-primitives? lisp-code)
       (lisp->script lisp-code)
       (throw (ex-info "Only primitives allowed!"
@@ -32,24 +17,13 @@
       #_(recur and stuff))))
 
 (comment
-  (require '[instaparse.core :as insta])
-  (def r clojure.java.io/resource)
-  (def p clojure.pprint/pprint)
-  (defn bnf [] (r "btc-lisp.bnf"))
-  ((instaparse.core/parser (bnf)) "(+ 1(+ (neg 1)2))")
+  (require '[btc-lisp.core :refer :all]
+           '[btc-lisp.syntax :refer :all])
 
-  (defn unwrap [unwrap-types [type body :as token]]
-    (if (contains? unwrap-types type)
-      body
-      token))
+  (def defaults
+    {:valid-syntax? identity
+     :valid-types? identity
+     :all-primitives? identity
+     :lisp->script (comp reverse flatten)})
 
-  (def ^:const superfluous-types #{:expression :item :sexpr-item})
-
-  (def unwrap-all
-    (partial clojure.walk/prewalk
-             (fn [token]
-               (if (vector? token)
-                 (unwrap superfluous-types token)
-                 token))))
-
- )
+  )

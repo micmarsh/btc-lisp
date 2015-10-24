@@ -1,0 +1,7 @@
+[{:type :int :values #{0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}}
+ {:type [:int -> :int -> :int] :values #{+ - = num=}}
+ {:type [:int -> :int] :values #{inc dec neg abs not}}]
+;; TODO from checking out the js thing, looks like there's really no
+;; distinction between ints and bools. Need to follow up on that at
+;; some point
+;; TODO crypto + inputs to crypto, to really make things interesting
