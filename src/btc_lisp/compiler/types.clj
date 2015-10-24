@@ -33,7 +33,7 @@
         arg-types (drop-last types)
         arity (count arg-types)]
     (when-not (= arity (count args))
-      (throw (ex-info "Arity execption"
+      (throw (ex-info "arity execption"
                       {:expression (map' :value (list* f args))
                        :expected-arg-count (count arg-types)
                        :actual-arg-count (count args)
