@@ -1,4 +1,4 @@
-(ns btc-lisp.protocols)
+(ns btc-lisp.compiler.protocols)
 
 (defprotocol Lisp (as-lisp [this]))
 

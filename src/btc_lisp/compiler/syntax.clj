@@ -1,4 +1,4 @@
-(ns btc-lisp.syntax
+(ns btc-lisp.compiler.syntax
   (:require [instaparse.core :as insta]
             [clojure.java.io :refer [resource]]))
 

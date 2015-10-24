@@ -1,5 +1,5 @@
-(ns btc-lisp.types
-  (:require [btc-lisp.protocols :as p]))
+(ns btc-lisp.compiler.types
+  (:require [btc-lisp.compiler.primitives.types :as t]))
 
 (defmulti type-infer (fn [_ val] (type val)))
 
@@ -54,26 +54,11 @@
 (defmethod type-check clojure.lang.Symbol [_] true)
 (defmethod type-check java.lang.Long [_] true)
 
+(defn type-lookup [to-lookup]
+  (if-let [prim-result (get t/primitive-types to-lookup)]
+    prim-result
+    (throw (ex-info (format "No type found for %s" to-lookup)
+                    {:original-item to-lookup}))))
 (comment
-    
-  (def type-lookup
-    (let [raw-edn 
-          (->> "primitive-types.edn"
-               (clojure.java.io/resource)
-               (clojure.java.io/reader)
-               (java.io.PushbackReader.)
-               (clojure.edn/read)
-               (mapcat (fn [{:keys [type values]}]
-                         (map #(hash-map % type) values)))
-               (apply merge-with
-                      #(throw (ex-info "type conflict!")
-                              {:type1 %1
-                               :type2 %2})))]
-      (fn [to-lookup]
-        (if-let [result (get raw-edn to-lookup)]
-          result
-          (throw (ex-info (format "No type found for %s" to-lookup)
-                          {:original-item to-lookup}))))))
-
   (btc-lisp.types/type-check (btc-lisp.types/type-infer type-lookup '(+ 1 2)))
   )

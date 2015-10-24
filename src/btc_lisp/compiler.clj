@@ -1,6 +1,6 @@
-(ns btc-lisp.core
+(ns btc-lisp.compiler
   (:require [instaparse.core :as insta]
-            [btc-lisp.protocols :as p]))
+            [btc-lisp.compiler.protocols :as p]))
 
 (defn compile
   [{:keys [valid-syntax? valid-types?
