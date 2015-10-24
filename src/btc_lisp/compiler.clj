@@ -1,6 +1,9 @@
 (ns btc-lisp.compiler
   (:require [instaparse.core :as insta]
-            [btc-lisp.compiler.protocols :as p]))
+            [btc-lisp.compiler
+             [protocols :as p]
+             [syntax :refer [parser]]
+             [types :as t]]))
 
 (defn compile
   [{:keys [valid-syntax? valid-types?
@@ -16,14 +19,18 @@
                        :code lisp-code}))
       #_(recur and stuff))))
 
+(def defaults
+  {:valid-syntax? (comp not empty? parser)
+   :valid-types? (comp t/type-check
+                       (partial t/type-infer t/type-lookup)
+                       p/as-lisp)
+   :all-primitives? identity
+   :lisp->script (comp reverse flatten)})
+
+(def compile* (partial compile defaults))
+
 (comment
   (require '[btc-lisp.core :refer :all]
            '[btc-lisp.syntax :refer :all])
-
-  (def defaults
-    {:valid-syntax? identity
-     :valid-types? identity
-     :all-primitives? identity
-     :lisp->script (comp reverse flatten)})
 
   )
