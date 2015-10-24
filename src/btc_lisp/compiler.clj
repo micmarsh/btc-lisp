@@ -1,6 +1,7 @@
 (ns btc-lisp.compiler
   (:require [instaparse.core :as insta]
             [btc-lisp.compiler
+             [primitives :as pr]
              [protocols :as p]
              [syntax :refer [parser]]
              [types :as t]]))
@@ -24,8 +25,8 @@
    :valid-types? (comp t/type-check
                        (partial t/type-infer t/type-lookup)
                        p/as-lisp)
-   :all-primitives? identity
-   :lisp->script (comp reverse flatten)})
+   :all-primitives? (comp (partial every? pr/primitive?) flatten)
+   :lisp->script (comp (partial map pr/->opcode) reverse flatten)})
 
 (def compile* (partial compile defaults))
 
