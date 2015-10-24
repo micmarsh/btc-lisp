@@ -1,0 +1,14 @@
+expression = sexpression | item
+
+sexpression = <lparen> sexpr-item* <rparen>
+sexpr-item = expression <mspace> | <mspace> expression
+item = symbol | literal
+symbol = #"[a-z-+*]+"
+literal = primitive-number
+
+primitive-number = #"(1[0-6]|[0-9])"
+
+<lparen> = "("
+<rparen> = ")"
+<space> = " "+
+<mspace> = " "*
