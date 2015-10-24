@@ -59,6 +59,3 @@
     prim-result
     (throw (ex-info (format "No type found for %s" to-lookup)
                     {:original-item to-lookup}))))
-(comment
-  (btc-lisp.types/type-check (btc-lisp.types/type-infer type-lookup '(+ 1 2)))
-  )

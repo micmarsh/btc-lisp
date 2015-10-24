@@ -29,9 +29,3 @@
    :lisp->script (comp (partial map pr/->opcode) reverse flatten)})
 
 (def compile* (partial compile defaults))
-
-(comment
-  (require '[btc-lisp.core :refer :all]
-           '[btc-lisp.syntax :refer :all])
-
-  )
