@@ -1,14 +1,46 @@
-# btc-lisp
+# BTC Lisp
 
-A Clojure library designed to ... well, that part is up to you.
+Compile lisp to Bitcoin Script. Awww yiss.
 
-## Usage
+# Very General Roadmap
 
-FIXME
+## Low-Level Concerns
+
+* testing
+ * using bitcoinj to get result values for scripts
+ * write a generator for all sorts of valid code
+
+* if expressions
+ * will almost certainly include generics/templates
+
+* crypto primitives + operations
+ * primitive stuff will be easy
+ * will probably extend generics from above to =
+ * how to encode these keys into some form bitcoinj can use
+
+* actually "running" these transactions
+ * don't much much about this, but probably most important
+ * start to consider size limit and how best to incorporate into language
+ * also consider simple contracts and actually write some
+
+## Real Language Shit
+
+* symbol binding
+ * scoping oh boy
+ * work into type checker
+
+* function invocation 
+ * size limit considerations from above become very important
+ * hindley-milner for typing???
+ * closures n' shit
+
+* non-primitive value types
+ * start w/ cons
+ * foldl is probably other requirement
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015 Michael Marsh
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
