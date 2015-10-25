@@ -8,7 +8,9 @@
 (def primitives (edn-resource "primitive-items.edn"))
 
 (def gen-primitive-literal
-  (gen/elements (map key (:literals primitives))))
+  (gen/elements (sequence (comp (map key)
+                                (remove #{0}))
+                          (:literals primitives))))
 
 (def gen-primitive-symbol
   (gen/elements (map key (:symbols primitives))))
@@ -21,14 +23,6 @@
     true
     (catch clojure.lang.ExceptionInfo e
       false)))
-
-(comment
-  (def compound (fn [inner-gen]
-                  (gen/one-of [(gen/list inner-gen)
-                               (gen/map inner-gen inner-gen)])))
-  (def scalars (gen/one-of [gen/int gen/boolean]))
-  (def my-json-like-thing (gen/recursive-gen compound scalars))
-  )
 
 (defn gen-primitive-args [arg-gen]
   (for [args (gen/tuple arg-gen arg-gen)

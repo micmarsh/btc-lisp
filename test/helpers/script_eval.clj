@@ -30,9 +30,3 @@
        (jscript)
        (jscript-execute)
        (mapv seq)))
-
-;; TODO  should be able to focus on generator now, but note
-;; down the output value discrepencies u've found
-;; * 0 = nil (not a in a seq or anything)
-;; * -x = x - 128
-;; step right now?
