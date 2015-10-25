@@ -4,8 +4,7 @@
             [btc-lisp.test.helpers
              [script-eval :as s]
              [clojurify :as c]]
-            [btc-lisp.test.helpers.gen.code
-             :refer [gen-primitive-expr]]
+            [btc-lisp.test.helpers.gen.code :refer :all]
             [clojure.test.check
              [clojure-test :refer [defspec]]
              [properties :as prop]]))
@@ -16,6 +15,10 @@
         (long (cond (nil? top-stack) 0
                     (neg? top-stack) (- (+ 128 top-stack))
                     :else top-stack)))))
+
+(defn -compare [btc-lisp-code]
+  {:clojure (eval (c/clojurify btc-lisp-code))
+   :btc-lisp (s/eval-opcodes (compile* (str btc-lisp-code)))})
 
 (defspec test-compiler-valid-output 20
   (prop/for-all
