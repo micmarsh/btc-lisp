@@ -1,5 +1,7 @@
 (ns btc-lisp.compiler
-  (:require [instaparse.core :as insta]
+  (:require [clojure.walk :refer [prewalk]]
+            [instaparse.core :as insta]
+            [btc-lisp.compiler.primitives.rewrite :as r]
             [btc-lisp.compiler
              [primitives :as pr]
              [protocols :as p]
@@ -26,6 +28,6 @@
                        (partial t/type-infer t/type-lookup)
                        p/as-lisp)
    :all-primitives? (comp (partial every? pr/primitive?) flatten)
-   :lisp->script (comp (partial map pr/->opcode) reverse flatten)})
+   :lisp->script (comp (partial map pr/->opcode) reverse flatten (partial prewalk r/rewrite))})
 
 (def compile* (partial compile defaults))
