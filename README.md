@@ -7,8 +7,13 @@ Compile lisp to Bitcoin Script. Awww yiss.
 ## Low-Level Concerns
 
 * testing
- * using bitcoinj to get result values for scripts
- * write a generator for all sorts of valid code
+ * ~~using bitcoinj to get result values for scripts~~
+ * ~~write a generator for all sorts of valid code~~
+ 
+* actually "running" these transactions
+ * don't much much about this, but probably most important
+ * start to consider size limit and how best to incorporate into language
+ * also consider simple contracts and actually write some
 
 * if expressions
  * will almost certainly include generics/templates
@@ -17,11 +22,6 @@ Compile lisp to Bitcoin Script. Awww yiss.
  * primitive stuff will be easy
  * will probably extend generics from above to =
  * how to encode these keys into some form bitcoinj can use
-
-* actually "running" these transactions
- * don't much much about this, but probably most important
- * start to consider size limit and how best to incorporate into language
- * also consider simple contracts and actually write some
 
 ## Real Language Shit
 
