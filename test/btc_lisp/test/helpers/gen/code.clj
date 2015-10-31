@@ -10,6 +10,8 @@
 (def gen-primitive-literal
   (gen/elements (sequence (comp (map key)
                                 (remove #{0}))
+                          ;; for some reason bitcoinj doesn't
+                          ;; like OP_0's
                           (:literals primitives))))
 
 (def gen-primitive-symbol
