@@ -23,7 +23,7 @@ Compile lisp to Bitcoin Script. Awww yiss.
  * will probably extend generics from above to =
  * how to encode these keys into some form bitcoinj can use
 
-## Real Language Shit
+## Real Language Stuff
 
 * symbol binding
  * scoping oh boy
