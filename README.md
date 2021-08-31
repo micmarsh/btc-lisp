@@ -1,6 +1,6 @@
 # BTC Lisp
 
-Compile lisp to Bitcoin Script. Awww yiss.
+Compile lisp to Bitcoin Script.
 
 # Very General Roadmap
 
