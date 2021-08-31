@@ -32,7 +32,7 @@ Compile lisp to Bitcoin Script. Awww yiss.
 * function invocation 
  * size limit considerations from above become very important
  * hindley-milner for typing???
- * closures n' shit
+ * closures
 
 * non-primitive value types
  * start w/ cons
